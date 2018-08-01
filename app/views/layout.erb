@@ -15,6 +15,22 @@
   </head>
   <body>
     <div class="wrapper">
+      <header>
+        <h1>You You Know</h1>
+        <% if logged_in? %>
+          <small>You're logged in as: </small><large><%=current_user.username %></large>
+          <br>
+          <a href="/logout"><small>Log Out</small></a>
+          <br>
+          <br>
+        <% else %>
+          <br>
+          <br>
+        <%end%>
+        <% unless locals.empty? %>
+          <p><%= message %></p>
+        <% end %>
+      </header>
 
         <%= yield %>
 
