@@ -1,1 +1,11 @@
-signup.erb
+<h2>Sign Up</h2>
+<form action="/signup" method="POST">
+  <p>Username: <input type="text" name="username"></p>
+  <p>Email: <input type="text" name="email"></p>
+  <p>Password: <input type="text" name="password"></p>
+  <input class="btn btn-primary" type="submit">
+</form>
+
+<br>
+
+<h4>Already a user? <a href="/login">Click here to Log In</a></h4>
