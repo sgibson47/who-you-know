@@ -54,8 +54,13 @@ class UsersController < ApplicationController
 
   get '/users/:slug' do
     if logged_in?
-      if @user = User.find_by_slug(params[:slug]) && @user == current_users
-        erb :'users/show'
+      if @user = User.find_by_slug(params[:slug]) 
+        if @user == current_user
+          erb :'users/show'
+        else
+          @user = current_user
+          erb :'users/show', locals: {message: "You can only view your own content."}
+        end
       else
         @user = current_user
         erb :'users/show', locals: {message: "You can only view your own content."}
