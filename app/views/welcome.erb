@@ -1,22 +1,20 @@
 <div class="container">
-  <header><img src="images/corneal-small.png" class="img-responsive main-image"></header>
+  <header><h1>Who You Know</h1></header>
   <div class="col-md-8 col-md-offset-2">
-    <h2>Sinatra Template Default Page</h2>
-
+  
     <div class="content">
-      <p>Welcome to the Sinatra Template! If you're seeing this page, then everything is working
-      as expected. To get started, delete this file (<code>app/views/welcome.erb)</code> and begin adding
-      your own actions to <code>application_controller.rb</code>. For more information, see the <a href="https://github.com/thebrianemory/corneal">README</a>.</p>
-    </div>
-
-    <div class="sidebar">
-      <h3>Environment</h3>
-      <ul>
-        <li><b>Ruby:</b> <%= RUBY_VERSION %></li>
-        <li><b>Environment:</b> <%= ENV["RACK_ENV"] %></li>
-        <li><b>Server:</b> <%= @env["SERVER_SOFTWARE"] %></li>
-        <li><b>Port:</b> <%= @env["SERVER_PORT"] %></li>
-      </ul>
+      
+      <br>
+      <% if logged_in? %>
+        <p>Welcome, <%=current_user.username %></p>
+      <% else %>
+        <p>Welcome to Who You Know</p>
+        <p>Please Log In or Sign Up below:</p>
+        <a href="/signup">Sign Up</a>
+        <br>
+        <br>
+        <a href="/login"> Log In </a>
+      <%end %>
     </div>
 
   </div>
