@@ -31,5 +31,14 @@ class UsersController < ApplicationController
       redirect to '/'
     end
   end
+
+  get '/login' do
+    if !logged_in?
+      erb :'users/login'
+    else
+      @user = current_user
+      erb :'users/show'
+    end
+  end
   
 end
