@@ -40,5 +40,16 @@ class UsersController < ApplicationController
       erb :'users/show'
     end
   end
+
+  post '/login' do
+    user = User.find_by(:username => params[:username])
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      @user = current_user
+      erb :'users/show'
+    else
+      erb :'users/login', locals: {message: "Invalid username & password combo. You must provide an existing username and its password to log in."}
+    end
+  end
   
 end
