@@ -1,1 +1,6 @@
-show.erb
+<h2>Who <%= @user.username%> Knows</h2>
+<br>
+<h3>Contacts</h3>
+<% @user.contacts.each do |c|%>
+  <%=c.name%>
+<%end%>
