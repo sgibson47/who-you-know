@@ -51,5 +51,18 @@ class UsersController < ApplicationController
       erb :'users/login', locals: {message: "Invalid username & password combo. You must provide an existing username and its password to log in."}
     end
   end
+
+  get '/users/:slug' do
+    if logged_in?
+      if @user = User.find_by_slug(params[:slug]) && @user == current_users
+        erb :'users/show'
+      else
+        @user = current_user
+        erb :'users/show', locals: {message: "You can only view your own content."}
+      end 
+    else
+      erb :'users/login', locals: {message: "Please sign in to view content."}
+    end
+  end
   
 end
