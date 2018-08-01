@@ -8,4 +8,12 @@ class User < ActiveRecord::Base
 
   validates :email, :username, :password, presence: {message: "In order to signup, you must include an email, username, and password."}
   validates :username, uniqueness: {message: "That username has been taken. Please try another."}
+
+  def slug
+    username.downcase.gsub(" ","-")
+  end
+
+  def self.find_by_slug(slug)
+    User.all.find{|user| user.slug == slug}
+  end
 end
