@@ -9,6 +9,18 @@ class UsersController < ApplicationController
     end
   end
 
+  post '/signup' do
+    @user=User.new
+    @user.username = params[:username]
+    @user.email = params[:email]
+    @user.password = params[:password]
 
+    if @user.save
+      session[:user_id] = @user.id
+      erb :'users/show'
+    else
+      erb :'users/signup'
+    end
+  end
   
 end
