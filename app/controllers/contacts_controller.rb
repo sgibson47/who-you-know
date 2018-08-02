@@ -18,4 +18,13 @@ class ContactsController < ApplicationController
       erb :'users/login', locals: {message: "Please sign in to view content."}
     end
   end
+
+  get '/contacts/new' do
+    if logged_in?
+      erb :'contacts/new'
+    else
+      erb :'users/login', locals: {message: "Please sign in to view content."}
+    end
+  end
+
 end
