@@ -51,6 +51,7 @@ class ContactsController < ApplicationController
     if logged_in?
       @contact = Contact.find_by_id(params[:id])
       if @contact && @contact.user == current_user
+        @user = current_user
         erb :'contacts/update'
       elsif @contact && @contact.user != current_user
         @user = current_user
