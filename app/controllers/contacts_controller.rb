@@ -27,8 +27,6 @@ class ContactsController < ApplicationController
     end
   end
 
-  
-
   post '/contacts' do
     if logged_in?
       @contact= Contact.new(params[:contact])
