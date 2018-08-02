@@ -88,6 +88,7 @@ class ContactsController < ApplicationController
       else
         @user = current_user
         erb :'contacts/index', locals: {message: "No such contact."}
+      end
     else
       erb :'users/login', locals: {message: "Please sign in to view content."}
     end
