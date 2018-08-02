@@ -3,4 +3,6 @@ class Contact < ActiveRecord::Base
   has_many :contact_interactions
   has_many :interactions, through: :contact_interactions
   has_many :notes
+
+  validates :name, presence: {message: "A contact must have a name."}
 end
