@@ -12,7 +12,7 @@
   <br></br>
  
   <%@user.interactions.each do |i|%>
-    <input type="checkbox" name="contact[interaction_ids][]" id="<%= i.id%>" value="<%=i.id%>" <%='checked' if @contact.interactions.include?(i) %>><%=a.date%></input>
+    <input type="checkbox" name="contact[interaction_ids][]" id="<%= i.id%>" value="<%=i.id%>" <%='checked' if @contact.interactions.include?(i) %>><%=i.date%></input>
   <%end%>
  
   <br></br>
