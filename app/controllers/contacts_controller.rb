@@ -47,4 +47,20 @@ class ContactsController < ApplicationController
     end
   end
 
+  get '/contacts/:id/edit' do
+    if logged_in?
+      @contact = Contact.find_by_id(params[:id])
+      if @contact && @contact.user == current_user
+        erb :'contacts/update'
+      elsif @contact && @contact.user != current_user
+        @user = current_user
+        erb :'contacts/index', locals: {message: "You didn't make that contact. You can't edit other people's contacts."} 
+      else
+        erb :'contacts/index', locals: {message: "No such contact."}
+      end
+    else
+      erb :'users/login', locals: {message: "Please sign in to view content."}
+    end
+  end
+
 end
