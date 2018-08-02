@@ -27,4 +27,22 @@ class ContactsController < ApplicationController
     end
   end
 
+  post '/contacts' do
+    if logged_in?
+      @contact= Contact.new(params[:contact])
+      @note = Note.new(params[:note]) if !params["note"]["content"].empty?
+      @note.save
+      if @contact.invalid? || @note.invalid?
+        erb :"/books/new"
+      else
+        @contact.user = current_user
+        @contact.notes << @note if @note.valid?
+        @contact.save
+        redirect to "/contacts/#{@contact.id}"
+      end
+    else
+      erb :'users/login', locals: {message: "Please sign in to view content."}
+    end
+  end
+
 end
