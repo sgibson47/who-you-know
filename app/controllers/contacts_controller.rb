@@ -19,7 +19,7 @@ class ContactsController < ApplicationController
   get '/contacts/:id' do
     @contact = Contact.find_by_id(params[:id])
     if logged_in? && @contact.user == current_user
-      erb :'cotnacts/show'
+      erb :'contacts/show'
     elsif logged_in? && @contact.user != current_user
       erb :'users/show', locals: {message: "You may only view your own contacts."}
     else
@@ -32,10 +32,13 @@ class ContactsController < ApplicationController
   post '/contacts' do
     if logged_in?
       @contact= Contact.new(params[:contact])
+      binding.pry
       @note = Note.new(params[:note]) if !params["note"]["content"].empty?
-      @note.save
-      if @contact.invalid? || @note.invalid?
-        erb :"/books/new"
+      @note.save if !!@note
+      if @contact.invalid?
+        erb :"/contacts/new"
+      elsif @note && @note.invalid?
+        erb :'/contacts/new'
       else
         @contact.user = current_user
         @contact.notes << @note if @note.valid?
