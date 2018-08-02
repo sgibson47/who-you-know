@@ -1,12 +1,25 @@
 <h2><%= @contact.user.username%>'s Contact</h2>
 <h2><%= @contact.name%></h2>
+
 <br>
 <h4>Notes about <%=@contact.name%></h4>
 <%@contact.notes.each do |n|%>
   <%= n.content%><br>
 <%end%>
+
 <br>
 <h4>Interactions with <%=@contact.name%></h4>
 <%@contact.interactions.each do |i|%>
   <%= i.date%><br>
 <%end%>
+
+<br>
+<form method="get" action="/contacts/<%=@contact.id%>/edit">
+  <input type="submit" value="Edit Contact">
+</form>
+
+<br>
+<form method="post" action="/contacts/<%=@contact.id%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Contact">
+</form>
