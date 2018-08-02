@@ -1,5 +1,27 @@
 <h2> Edit this Contact </h2>
 
+<%if @contact && @contact.errors.any?%>
+  <%@contact.errors.messages.each do |k,v|%>
+    <% v.each do |message|%>
+      <%= message %></p>
+    <%end%>
+  <%end%><br>
+<%end%>
+<%if @interaction && @interaction.errors.any?%>
+  <%@interaction.errors.messages.each do |k,v|%>
+    <% v.each do |message|%>
+      <%= message %></p>
+    <%end%>
+  <%end%><br>
+<%end%>
+<%if @note && @note.errors.any?%>
+  <%@note.errors.messages.each do |k,v|%>
+    <% v.each do |message|%>
+      <%= message %></p>
+    <%end%>
+  <%end%><br>
+<%end%>
+
 <form method="post" action="/contacts/<%=@contact.id%>">
   <input id="hidden" type="hidden" name="_method" value="PATCH">
   <label>Name:</label>
