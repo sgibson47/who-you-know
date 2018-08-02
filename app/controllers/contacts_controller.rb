@@ -93,4 +93,23 @@ class ContactsController < ApplicationController
     end
   end
 
+  delete '/contacts/:id/delete' do
+    if logged_in?
+      @contact = Contact.find(params[:id])
+      if @contact && @contact.user == current_user
+        @contact.delete
+        @user = current_user
+        erb :'contacts/index', locals: {message: "Your contact was deleted."}
+      elsif @cotnact && @contact.user != current_user
+        @user = current_user
+        erb :'contacts/index', locals: {message: "You didn't make that contact. You can't delete other people's contacts."} 
+      else
+        @user = current_user
+        erb :'contacts/index', locals: {message: "No such contact."}
+      end
+    else
+      erb :'users/login', locals: {message: "Please sign in to view content."}
+    end
+  end
+
 end
