@@ -32,7 +32,6 @@ class ContactsController < ApplicationController
   post '/contacts' do
     if logged_in?
       @contact= Contact.new(params[:contact])
-      binding.pry
       @note = Note.new(params[:note]) if !params["note"]["content"].empty?
       @note.save if !!@note
       if @contact.invalid?
