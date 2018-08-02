@@ -8,6 +8,14 @@ class ContactsController < ApplicationController
     end
   end
 
+  get '/contacts/new' do
+    if logged_in?
+      erb :'contacts/new'
+    else
+      erb :'users/login', locals: {message: "Please sign in to view content."}
+    end
+  end
+
   get '/contacts/:id' do
     @contact = Contact.find_by_id(params[:id])
     if logged_in? && @contact.user == current_user
@@ -19,13 +27,7 @@ class ContactsController < ApplicationController
     end
   end
 
-  get '/contacts/new' do
-    if logged_in?
-      erb :'contacts/new'
-    else
-      erb :'users/login', locals: {message: "Please sign in to view content."}
-    end
-  end
+  
 
   post '/contacts' do
     if logged_in?
