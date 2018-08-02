@@ -1,4 +1,18 @@
 <h2>Make a New Contact</h2>
+<%if @contact && @contact.errors.any?%>
+  <%@contact.errors.messages.each do |k,v|%>
+    <p><% v.each do |message|%>
+      <%= message %></p>
+    <%end%>
+  <%end%>
+<%end%>
+<%if @note && @note.errors.any?%>
+  <%@note.errors.messages.each do |k,v|%>
+    <p><% v.each do |message|%>
+      <%= message %></p>
+    <%end%>
+  <%end%>
+<%end%>
 
 <form action="/cotnacts" method="POST">
   <label>Name:</label>
