@@ -1,6 +1,8 @@
 <h2>Who <%= @user.username%> Knows</h2>
 <br>
-<h3>Contacts</h3>
-<% @user.contacts.each do |c|%>
-  <%=c.name%>
-<%end%>
+<a href="/contacts"><large>Contacts</large></a>
+<br>
+<a href="/interactions"><large>Interactions</large></a>
+<br>
+<a href="/notes"><large>Notes</large></a>
+
