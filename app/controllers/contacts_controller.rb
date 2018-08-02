@@ -7,4 +7,15 @@ class ContactsController < ApplicationController
       erb :'users/login', locals: {message: "Please sign in to view content."}
     end
   end
+
+  get '/contacts/:id' do
+    @contact = Contact.find_by_id(params[:id])
+    if logged_in? && @contact.user == current_user
+      erb :'cotnacts/show'
+    elsif logged_in? && @contact.user != current_user
+      erb :'users/show', locals: {message: "You may only view your own contacts."}
+    else
+      erb :'users/login', locals: {message: "Please sign in to view content."}
+    end
+  end
 end
