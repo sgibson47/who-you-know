@@ -1,0 +1,10 @@
+<h2><%= @contact.user.username%>'s Contact</h2>
+<h2><%= @contact.name%></h2>
+<br>
+<%@contact.notes.each do |n|%>
+  <%= n.content%><br>
+<%end%>
+<br>
+<%@contact.interactions.each do |i|%>
+  <%= i.date%><br>
+<%end%>
