@@ -52,7 +52,7 @@ class ContactsController < ApplicationController
       @contact = Contact.find_by_id(params[:id])
       if @contact && @contact.user == current_user
         @user = current_user
-        erb :'contacts/update'
+        erb :'contacts/edit'
       elsif @contact && @contact.user != current_user
         @user = current_user
         erb :'contacts/index', locals: {message: "You didn't make that contact. You can't edit other people's contacts."} 
