@@ -1,0 +1,44 @@
+<h2> Edit this Contact </h2>
+
+<form method="post" action="/contacts/<%=@contact.id%>">
+  <input id="hidden" type="hidden" name="_method" value="PATCH">
+  <label>Name:</label>
+  <br></br>
+  <input type="text" name="contact[name]" value="<%= @contact.name %>">
+  <br></br>
+
+  <label>Choose an existing interaction:</label>
+ 
+  <br></br>
+ 
+  <%@user.interactions.each do |i|%>
+    <input type="checkbox" name="contact[interaction_ids][]" id="<%= i.id%>" value="<%=i.id%>" <%='checked' if @contact.interactions.include?(i) %>><%=a.date%></input>
+  <%end%>
+ 
+  <br></br>
+ 
+  <label>and/or, create a new interaction:</label>
+  <br></br>
+  <label>Date:</label>
+    <input  type="text" name="interaction[date]" id="interaction_date"></input>
+  <br></br>
+
+  <label>Choose an existing interaction:</label>
+ 
+  <br></br>
+ 
+  <%@user.interactions.each do |i|%>
+    <input type="checkbox" name="contact[interaction_ids][]" id="<%= i.id%>" value="<%=i.id%>" <%='checked' if @contact.interactions.include?(i) %>><%=a.date%></input>
+  <%end%>
+ 
+  <br></br>
+ 
+  <label>Add a new Note about this Contact</label>
+  <br></br>
+  <label>Content:</label>
+    <input  type="text" name="note[content]" id="note_content"></input>
+  <br></br>
+
+
+  <input type="submit" value="submit">
+</form>
