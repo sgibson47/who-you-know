@@ -1,0 +1,6 @@
+<h2><%= @user.username%>'s Notes</h2>
+<br>
+<% @user.notes.each do |n|%>
+  <p> Note #<a href="/notes/<%=n.id%>"><%= n.id %></a></p>
+  <p> <%= n.content %></p>
+<%end%>
