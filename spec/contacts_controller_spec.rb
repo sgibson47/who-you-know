@@ -82,6 +82,31 @@ describe 'contacts new action' do
       expect(Contact.find_by(:name => "")).to eq(nil)
       expect(page.body).to include("A contact must have a name.")
     end
+
+    it 'does not create a note if user does not provide content' do
+      user = User.create(:username => "Terrbear", :email => "tjeffords@nypd.nyc.gov", :password => "Cagney&Lacey")
+
+      visit '/login'
+
+      fill_in(:username, :with => "Terrbear")
+      fill_in(:password, :with => "Cagney&Lacey")
+      click_button 'submit'
+      
+
+      visit '/contacts/new'
+      fill_in("contact[name]", :with => "Jake Peralta")
+      fill_in("note[content]", :with => "")
+      click_button 'Create New Contact'
+
+      user = User.find_by(:username => "Terrbear")
+      contact = Contact.find_by(:name => "Jake Peralta")
+      expect(contact).to be_instance_of(Contact)
+      expect(contact.user_id).to eq(user.id)
+      expect(Note.find_by(:content => "")).to eq(nil)
+      expect(page.body).to include("#{contact.name}")
+      expect(page.status_code).to eq(200)
+    end
+
   end
 
   context 'logged out' do
