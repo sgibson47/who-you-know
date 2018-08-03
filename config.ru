@@ -8,4 +8,5 @@ use Rack::MethodOverride
 use UsersController
 use ContactsController
 use InteractionsController
+use NotesController
 run ApplicationController
