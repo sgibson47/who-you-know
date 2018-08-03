@@ -49,5 +49,22 @@ class InteractionsController < ApplicationController
     end
   end
 
-
+  delete '/interactions/:id/delete' do
+    if logged_in?
+      @interaction = Interaction.find(params[:id])
+      if @interaction && @interaction.user == current_user
+        @interaction.delete
+        @user = current_user
+        erb :'interactions/index', locals: {message: "Your interaction was deleted."}
+      elsif @interaction && @interaction.user != current_user
+        @user = current_user
+        erb :'interactions/index', locals: {message: "You didn't make that interaction. You can't delete other people's interactions."} 
+      else
+        @user = current_user
+        erb :'interactions/index', locals: {message: "No such interaction."}
+      end
+    else
+      erb :'users/login', locals: {message: "Please sign in to view content."}
+    end
+  end
 end
