@@ -1,1 +1,14 @@
-show.erb
+<h2><%= @note.user.username%>'s Interaction</h2>
+<h2>Note #<%= @note.id%></h2>
+
+<br>
+<h4>Contacts associated with Note #<%=@note.id%></h4>
+<%@note.contacts.each do |c|%>
+  <%= c.name%><br>
+<%end%>
+
+<br>
+<h4>Interactions associated with Note #<%=@note.id%></h4>
+<%@note.interaction.each do |i|%>
+  <%= i.date%><br>
+<%end%>
