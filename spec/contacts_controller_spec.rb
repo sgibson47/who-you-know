@@ -28,3 +28,27 @@ describe 'contacts index action' do
     end
   end
 end
+
+describe 'contacts new action' do
+  context 'logged in' do
+    it 'lets user view new contact form if logged in' do
+      user = User.create(:username => "Terrbear", :email => "tjeffords@nypd.nyc.gov", :password => "Cagney&Lacey")
+
+      params = {
+        :username => "Terrbear",
+        :password => "Cagney&Lacey"
+      }
+      post '/login', params
+      
+      visit '/contacts/new'
+      expect(page.status_code).to eq(200)
+    end
+  end
+
+  context 'logged out' do
+    it 'does not let user view new contact form if not logged in' do
+      visit '/contacts/new'
+      expect(page.body).to include("Please sign in to view content")
+    end
+  end
+end
