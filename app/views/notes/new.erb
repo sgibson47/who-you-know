@@ -1,1 +1,51 @@
-new.erb
+<h2>Make a New Note</h2>
+
+<form action="/interactions" method="POST">
+  <label>Content:</label>
+  
+  <br></br>
+  
+  <input type="text" id="note_content" name="note[content]">
+  
+  <br></br>
+  <br></br>
+ 
+  <label>Choose an existing Contact to associate with this note:</label>
+ 
+  <br></br>
+ 
+  <%@user.contacts.each do |c|%>
+    <input type="radio" name="note[contact_id]" id="<%= c.id%>" value="<%=c.name%>" <%='checked' if @note.contact == c %>><%=c.name%></input>
+  <%end%>
+ 
+  <br></br>
+ 
+  <label>and/or, create a new Contact:</label>
+  <br></br>
+  <label>Name:</label>
+    <input  type="text" name="contact[name]" id="contact_name"></input>
+  <br></br>
+
+
+  <h3>OR</h3>
+
+  <label>Choose an existing Interaction to associate with this note:</label>
+ 
+  <br></br>
+ 
+  <%@user.interactions.each do |i|%>
+    <input type="radio" name="note[interaction_id]" id="<%= i.id%>" value="<%=i.date%>" <%='checked' if @note.interaction == i %>><%=i.date%></input>
+  <%end%>
+ 
+  <br></br>
+ 
+  <label>and/or, create a new Interaction:</label>
+  <br></br>
+  <label>Name:</label>
+    <input  type="text" name="contact[name]" id="contact_name"></input>
+  <br></br>
+
+  <h4> Each note may only be associated with one Contact or one Interaction</h4>
+  <input type="submit" value="Create New Note">
+
+</form>
