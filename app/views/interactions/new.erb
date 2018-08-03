@@ -1,1 +1,21 @@
-new.erb
+<h2>Make a New Interaction</h2>
+
+<form action="/interactions" method="POST">
+  <label>Date:</label>
+  
+  <br></br>
+  
+  <input type="text" id="interaction_date" name="interaction[date]">
+  
+  <br></br>
+  <br></br>
+ 
+  <label>Add a Note about this Interaction</label>
+  <br></br>
+  <label>Note:</label>
+    <input  type="text" name="note[content]" id="note_content"></input>
+  <br></br>
+
+  <input type="submit" value="Create New Interaction">
+
+</form>
