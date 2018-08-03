@@ -1,0 +1,5 @@
+<h2><%= @user.username%>'s Contacts</h2>
+<br>
+<% @user.interactions.each do |i|%>
+  <a href="/interactions/<%=i.id%>"><%= i.date %><br></a>
+<%end%>
