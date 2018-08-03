@@ -31,13 +31,15 @@ class ContactsController < ApplicationController
     if logged_in?
       @contact= Contact.new(params[:contact])
       @note = Note.new(params[:note]) if !params["note"]["content"].empty?
-      @note.save if !!@note
       if @contact.invalid?
+        @contact.save
         erb :"/contacts/new"
       elsif @note && @note.invalid?
+        @note.save if !!@note
         erb :'/contacts/new'
       else
         @contact.user = current_user
+        @note.save if !!@note
         @contact.notes << @note if @note.valid?
         @contact.save
         redirect to "/contacts/#{@contact.id}"
