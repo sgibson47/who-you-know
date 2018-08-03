@@ -1,1 +1,59 @@
-edit.erb
+<h2> Edit this Contact </h2>
+
+<%if @interaction && @interaction.errors.any?%>
+  <%@interaction.errors.messages.each do |k,v|%>
+    <% v.each do |message|%>
+      <%= message %></p>
+    <%end%>
+  <%end%><br>
+<%end%>
+
+<%if @contact && @contact.errors.any?%>
+  <%@contact.errors.messages.each do |k,v|%>
+    <% v.each do |message|%>
+      <%= message %></p>
+    <%end%>
+  <%end%><br>
+<%end%>
+
+<%if @note && @note.errors.any?%>
+  <%@note.errors.messages.each do |k,v|%>
+    <% v.each do |message|%>
+      <%= message %></p>
+    <%end%>
+  <%end%><br>
+<%end%>
+
+<form method="post" action="/interactions/<%=@interaction.id%>">
+  <input id="hidden" type="hidden" name="_method" value="PATCH">
+  <label>Date:</label>
+  <br></br>
+  <input type="text" name="interaction[date]" value="<%= @interaction.date %>">
+  <br></br>
+
+  <label>Choose an existing Contact:</label>
+ 
+  <br></br>
+ 
+  <%@user.contacts.each do |c|%>
+    <input type="checkbox" name="interaction[contact_ids][]" id="<%= c.id%>" value="<%=c.name%>" <%='checked' if @interaction.contacts.include?(c) %>><%=c.name%></input>
+  <%end%>
+ 
+  <br></br>
+ 
+  <label>and/or, create a new Contact:</label>
+  <br></br>
+  <label>Name:</label>
+    <input  type="text" name="contact[name]" id="contact_name"></input>
+  <br></br>
+
+ 
+  <label>Add a new Note about this Interaction</label>
+  <br></br>
+  <label>Content:</label>
+    <input  type="text" name="note[content]" id="note_content"></input>
+  <br></br>
+
+
+  <input type="submit" value="submit">
+</form>
