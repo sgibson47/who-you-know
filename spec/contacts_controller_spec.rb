@@ -23,8 +23,7 @@ describe 'index action' do
 
   context 'logged out' do
     it 'does not let a user a contacts index if not logged in' do
-      get '/contacts'
-      binding.pry
+      visit '/contacts'
       expect(page.body).to include("Please sign in to view content")
     end
   end
