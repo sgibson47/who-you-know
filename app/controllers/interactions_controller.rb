@@ -49,6 +49,24 @@ class InteractionsController < ApplicationController
     end
   end
 
+  get '/interactions/:id/edit' do
+    if logged_in?
+      @interaction = Interaction.find_by_id(params[:id])
+      if @interaction && @interaction.user == current_user
+        @user = current_user
+        erb :'interactions/edit'
+      elsif @interaction && @interaction.user != current_user
+        @user = current_user
+        erb :'interactions/index', locals: {message: "You didn't make that interaction. You can't edit other people's interactions."} 
+      else
+        @user = current_user
+        erb :'interactions/index', locals: {message: "No such interaction."}
+      end
+    else
+      erb :'users/login', locals: {message: "Please sign in to view content."}
+    end
+  end
+
   delete '/interactions/:id/delete' do
     if logged_in?
       @interaction = Interaction.find(params[:id])
