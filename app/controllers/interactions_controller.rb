@@ -16,6 +16,17 @@ class InteractionsController < ApplicationController
     end
   end
 
+  get '/inteactions/:id' do
+    @interaction = Interaction.find_by_id(params[:id])
+    if logged_in? && @interaction.user == current_user
+      erb :'interactions/show'
+    elsif logged_in? && @interaction.user != current_user
+      erb :'users/show', locals: {message: "You may only view your own contacts."}
+    else
+      erb :'users/login', locals: {message: "Please sign in to view content."}
+    end
+  end
+
   post '/interactions' do
     if logged_in?
       @interaction= Interaction.new(params[:interaction])
@@ -37,4 +48,6 @@ class InteractionsController < ApplicationController
       erb :'users/login', locals: {message: "Please sign in to view content."}
     end
   end
+
+
 end
