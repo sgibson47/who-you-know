@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'pry'
 
-describe 'index action' do
+describe 'contacts index action' do
   context 'logged in' do
     it 'lets a user view her own contacts index if logged in' do
       user1 = User.create(:username => "Terrbear", :email => "tjeffords@nypd.nyc.gov", :password => "Cagney&Lacey")
