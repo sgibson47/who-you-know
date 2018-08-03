@@ -16,7 +16,7 @@ class InteractionsController < ApplicationController
     end
   end
 
-  get '/inteactions/:id' do
+  get '/interactions/:id' do
     @interaction = Interaction.find_by_id(params[:id])
     if logged_in? && @interaction.user == current_user
       erb :'interactions/show'
