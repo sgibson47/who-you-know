@@ -64,6 +64,24 @@ describe 'contacts new action' do
       expect(contact.user_id).to eq(user.id)
       expect(page.status_code).to eq(200)
     end
+
+    it 'does not let a user create a contact with no name' do
+      user = User.create(:username => "Terrbear", :email => "tjeffords@nypd.nyc.gov", :password => "Cagney&Lacey")
+
+      visit '/login'
+
+      fill_in(:username, :with => "Terrbear")
+      fill_in(:password, :with => "Cagney&Lacey")
+      click_button 'submit'
+      
+
+      visit '/contacts/new'
+      fill_in("contact[name]", :with => "")
+      click_button 'Create New Contact'
+
+      expect(Contact.find_by(:name => "")).to eq(nil)
+      expect(page.body).to include("A contact must have a name.")
+    end
   end
 
   context 'logged out' do
