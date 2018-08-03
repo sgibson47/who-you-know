@@ -40,7 +40,7 @@ class ContactsController < ApplicationController
       else
         @contact.user = current_user
         @note.save if !!@note
-        @contact.notes << @note if @note.valid?
+        @contact.notes << @note if @note
         @contact.save
         redirect to "/contacts/#{@contact.id}"
       end

@@ -43,6 +43,27 @@ describe 'contacts new action' do
       visit '/contacts/new'
       expect(page.status_code).to eq(200)
     end
+
+    it 'lets user create a contact if they are logged in' do
+      user = User.create(:username => "Terrbear", :email => "tjeffords@nypd.nyc.gov", :password => "Cagney&Lacey")
+
+      visit '/login'
+
+      fill_in(:username, :with => "Terrbear")
+      fill_in(:password, :with => "Cagney&Lacey")
+      click_button 'submit'
+      
+
+      visit '/contacts/new'
+      fill_in("contact[name]", :with => "Jake Peralta")
+      click_button 'Create New Contact'
+
+      user = User.find_by(:username => "Terrbear")
+      contact = Contact.find_by(:name => "Jake Peralta")
+      expect(contact).to be_instance_of(Contact)
+      expect(contact.user_id).to eq(user.id)
+      expect(page.status_code).to eq(200)
+    end
   end
 
   context 'logged out' do
