@@ -13,3 +13,14 @@
   <%= c.name%><br>
 <%end%>
 
+<br>
+<form method="get" action="/interactions/<%=@interaction.id%>/edit">
+  <input type="submit" value="Edit Interaction">
+</form>
+
+<br>
+<form method="post" action="/interactions/<%=@interaction.id%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Interaction">
+</form>
+
