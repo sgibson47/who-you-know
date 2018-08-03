@@ -1,4 +1,18 @@
 <h2>Make a New Interaction</h2>
+<%if @interaction && @interaction.errors.any?%>
+  <%@interaction.errors.messages.each do |k,v|%>
+    <p><% v.each do |message|%>
+      <%= message %></p>
+    <%end%>
+  <%end%>
+<%end%>
+<%if @note && @note.errors.any?%>
+  <%@note.errors.messages.each do |k,v|%>
+    <p><% v.each do |message|%>
+      <%= message %></p>
+    <%end%>
+  <%end%>
+<%end%>
 
 <form action="/interactions" method="POST">
   <label>Date:</label>
