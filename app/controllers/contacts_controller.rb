@@ -101,7 +101,7 @@ class ContactsController < ApplicationController
     end
   end
 
-  get '/contacts/:id/delete' do
+  delete '/contacts/:id/delete' do
     if logged_in?
       @contact = Contact.find(params[:id])
       if @contact && @contact.user == current_user
