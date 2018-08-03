@@ -15,7 +15,7 @@
   <br></br>
  
   <%@user.contacts.each do |c|%>
-    <input type="radio" name="note[contact_id]" id="<%= c.id%>" value="<%=c.name%>" <%='checked' if @note.contact == c %>><%=c.name%></input>
+    <input type="radio" name="note[contact_id]" id="<%= c.id%>" value="<%=c.name%>"><%=c.name%></input>
   <%end%>
  
   <br></br>
@@ -34,7 +34,7 @@
   <br></br>
  
   <%@user.interactions.each do |i|%>
-    <input type="radio" name="note[interaction_id]" id="<%= i.id%>" value="<%=i.date%>" <%='checked' if @note.interaction == i %>><%=i.date%></input>
+    <input type="radio" name="note[interaction_id]" id="<%= i.id%>" value="<%=i.date%>"><%=i.date%></input>
   <%end%>
  
   <br></br>
