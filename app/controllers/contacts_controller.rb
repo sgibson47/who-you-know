@@ -71,18 +71,19 @@ class ContactsController < ApplicationController
     if logged_in?
       @contact = Contact.find(params[:id])
       @note = Note.new(params[:note]) if !params["note"]["content"].empty?
-      @note.save if @note
       @interaction = Interaction.new(params[:interaction]) if !params["interaction"]["date"].empty?
-      @interaction.save if @interaction
       if @contact && @contact.user != current_user
         @user = current_user
         erb :'contacts/index', locals: {message: "You didn't make that contact. You can't edit other people's contacts."} 
       elsif @contact && @contact.user == current_user
         if @contact.invalid?
+          @contact.update(params[:contact])
           erb :"/contacts/new"
         elsif @note && @note.invalid?
+          @note.save if @note
           erb :'/contacts/new'
         elsif @interaction && @interaction.invalid?
+          @interaction.save if @interaction
           erb :'/contacts/new'
         else
           @contact.update(params[:contact])
