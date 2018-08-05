@@ -1,22 +1,24 @@
-<h2><%= @note.user.username%>'s Note</h2>
+
 <h2>Note #<%= @note.id%></h2>
 
 <br>
-<h4>Contacts associated with Note #<%=@note.id%></h4>
-<%@note.contacts.each do |c|%>
-  <%= c.name%><br>
+<% if @note.contact %>
+  <h4>A Note about <%= @note.contact.name%></h4>
+  <p><%=@note.content%></p>
+  <br>
+  <form method="get" action="/notes/<%=@note.id%>/edit/for_contact">
+    <input type="submit" value="Edit Note">
+  </form>
 <%end%>
 
-<br>
-<h4>Interactions associated with Note #<%=@note.id%></h4>
-<%@note.interaction.each do |i|%>
-  <%= i.date%><br>
+<% if @note.interaction %>
+  <h4>A Note about <%= @note.interaction.date%></h4>
+  <p><%=@note.content%></p>
+  <br>
+  <form method="get" action="/notes/<%=@note.id%>/edit/for_interaction">
+    <input type="submit" value="Edit Note">
+  </form>
 <%end%>
-
-<br>
-<form method="get" action="/notes/<%=@note.id%>/edit">
-  <input type="submit" value="Edit Note">
-</form>
 
 <br>
 <form method="post" action="/notes/<%=@note.id%>/delete">
