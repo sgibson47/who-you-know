@@ -27,6 +27,7 @@ class NotesController < ApplicationController
   end
 
   post '/notes/for_contact' do
+    binding.pry
     
   end
 
