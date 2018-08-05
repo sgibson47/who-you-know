@@ -26,6 +26,14 @@ class NotesController < ApplicationController
     end
   end
 
+  get '/notes/:id' do
+    if logged_in?
+      @note = Note.find(params[:id])
+      erb :'notes/show'
+    else
+      erb :'users/login', locals: {message: "Please sign in to view content."}
+    end
+  end
   post '/notes/for_contact' do
     if logged_in?
       @note= Note.new(params[:note])
