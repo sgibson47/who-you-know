@@ -12,8 +12,14 @@
 <%end%>
 
 <% if @note.interaction %>
-  <h4>A Note about <%= @note.interaction.date%></h4>
+  <h3>A Note about an Interaction on <%= @note.interaction.date%></h3>
   <p><%=@note.content%></p>
+  <%if !@note.interaction.contacts.empty?%>
+    <h4>Involving</h4>
+    <%@note.interaction.contacts.each do |c|%>
+      <p> <%=c.name%></p>
+    <%end%>
+  <%end%>
   <br>
   <form method="get" action="/notes/<%=@note.id%>/edit/for_interaction">
     <input type="submit" value="Edit Note">
