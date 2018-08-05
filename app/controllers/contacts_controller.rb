@@ -73,28 +73,28 @@ class ContactsController < ApplicationController
       @contact = Contact.find(params[:id])
       @note = Note.new(params[:note]) if !params["note"]["content"].empty?
       @interaction = Interaction.new(params[:interaction]) if !params["interaction"]["date"].empty?
-      if @contact && @contact.user != current_user
-        @user = current_user
+      @user = current_user
+      if @contact && @contact.user != @user
         erb :'contacts/index', locals: {message: "You didn't make that contact. You can't edit other people's contacts."} 
-      elsif @contact && @contact.user == current_user
+      elsif @contact && @contact.user == @user
+        @contact.update(params[:contact])
         if @contact.invalid?
-          @contact.update(params[:contact])
-          erb :"/contacts/new"
+          erb :"/contacts/edit"
         elsif @note && @note.invalid?
           @note.save if @note
-          erb :'/contacts/new'
+          erb :'/contacts/edit'
         elsif @interaction && @interaction.invalid?
           @interaction.save if @interaction
-          erb :'/contacts/new'
+          erb :'/contacts/edit'
         else
-          @contact.update(params[:contact])
           @contact.notes << @note if @note
+          @interaction.user = @user if @interaction
           @contact.interactions << @interaction if @interaction
+          @interaction.save if @interaction
           @contact.save
           redirect to "/contacts/#{@contact.id}"
         end
       else
-        @user = current_user
         erb :'contacts/index', locals: {message: "No such contact."}
       end
     else

@@ -28,6 +28,7 @@
   <br></br>
   <input type="text" name="contact[name]" value="<%= @contact.name %>">
   <br></br>
+  <br></br>
 
   <label>Choose an existing interaction:</label>
  
@@ -43,16 +44,9 @@
   <br></br>
   <label>Date:</label>
     <input  type="text" name="interaction[date]" id="interaction_date"></input>
-  <br></br>
 
-  <label>Choose an existing interaction:</label>
  
   <br></br>
- 
-  <%@user.interactions.each do |i|%>
-    <input type="checkbox" name="contact[interaction_ids][]" id="<%= i.id%>" value="<%=i.id%>" <%='checked' if @contact.interactions.include?(i) %>><%=a.date%></input>
-  <%end%>
- 
   <br></br>
  
   <label>Add a new Note about this Contact</label>

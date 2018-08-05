@@ -36,7 +36,7 @@
   <br></br>
  
   <%@user.contacts.each do |c|%>
-    <input type="checkbox" name="interaction[contact_ids][]" id="<%= c.id%>" value="<%=c.name%>" <%='checked' if @interaction.contacts.include?(c) %>><%=c.name%></input>
+    <input type="checkbox" name="interaction[contact_ids][]" id="<%= c.id%>" value="<%=c.id%>" <%='checked' if @interaction.contacts.include?(c) %>><%=c.name%></input>
   <%end%>
  
   <br></br>
