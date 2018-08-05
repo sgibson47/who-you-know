@@ -34,6 +34,7 @@ class NotesController < ApplicationController
       erb :'users/login', locals: {message: "Please sign in to view content."}
     end
   end
+
   post '/notes/for_contact' do
     if logged_in?
       @note= Note.new(params[:note])
@@ -53,8 +54,23 @@ class NotesController < ApplicationController
     end
   end
 
-  post '/notes/for_contact' do
-    
+  post '/notes/for_interaction' do
+    if logged_in?
+      @note= Note.new(params[:note])
+      @interaction = Interaction.new(params[:interaction]) if !params["interaction"]["name"].empty?
+      if @note.invalid?
+        @note.save
+        erb :'/notes/new/for_interaction'
+      elsif @interaction && params[:interaction][:interaction_id]
+        erb :'/notes/new/for_interaction', locals: {message: "A Note can only belong to one Interaction."}
+      else
+        @interaction.notes << @note if @interaction
+        @note.save
+        redirect to "/notes/#{@note.id}"
+      end
+    else
+      erb :'users/login', locals: {message: "Please sign in to view content."}
+    end
   end
 
 end
