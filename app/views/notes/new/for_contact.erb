@@ -15,7 +15,7 @@
   <br></br>
  
   <%@user.contacts.each do |c|%>
-    <input type="radio" name="note[contact_id]" id="<%= c.id%>" value="<%=c.name%>"><%=c.name%></input>
+    <input type="radio" name="note[contact_id]" id="<%= c.id%>" value="<%=c.id%>"><%=c.name%></input>
   <%end%>
  
   <br></br>
