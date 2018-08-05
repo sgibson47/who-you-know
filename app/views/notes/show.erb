@@ -12,12 +12,12 @@
 <%end%>
 
 <% if @note.interaction %>
-  <h3>A Note about an Interaction on <%= @note.interaction.date%></h3>
+  <h3>A Note about an Interaction on <a href="/interactions/<%=@note.interaction.id%>"><%= @note.interaction.date%></a></h3>
   <p><%=@note.content%></p>
   <%if !@note.interaction.contacts.empty?%>
     <h4>Involving</h4>
     <%@note.interaction.contacts.each do |c|%>
-      <p> <%=c.name%></p>
+      <p> <a href="/contacts/<%=c.id%>"><%=c.name%></a></p>
     <%end%>
   <%end%>
   <br>

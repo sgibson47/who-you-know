@@ -21,6 +21,7 @@ class ContactsController < ApplicationController
     if logged_in? && @contact.user == current_user
       erb :'contacts/show'
     elsif logged_in? && @contact.user != current_user
+      @user = current_user
       erb :'users/show', locals: {message: "You may only view your own contacts."}
     else
       erb :'users/login', locals: {message: "Please sign in to view content."}

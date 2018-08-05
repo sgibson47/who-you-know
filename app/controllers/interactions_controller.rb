@@ -88,7 +88,9 @@ class InteractionsController < ApplicationController
         else
           @interaction.update(params[:interaction])
           @interaction.notes << @note if @note
+          @contact.user = current_user if @contact
           @interaction.contacts << @contact if @contact
+          @contact.save if @contact
           @interaction.save
           redirect to "/interactions/#{@interaction.id}"
         end
