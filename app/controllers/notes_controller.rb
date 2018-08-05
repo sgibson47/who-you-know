@@ -45,6 +45,7 @@ class NotesController < ApplicationController
       elsif @contact && params[:contact][:contact_id]
         erb :'/notes/new/for_contact', locals: {message: "A Note can only belong to one Contact."}
       else
+        @contact.user = current_user if @contact
         @contact.notes << @note if @contact
         @note.save
         redirect to "/notes/#{@note.id}"
@@ -64,6 +65,7 @@ class NotesController < ApplicationController
       elsif @interaction && params[:interaction][:interaction_id]
         erb :'/notes/new/for_interaction', locals: {message: "A Note can only belong to one Interaction."}
       else
+        @interaction.user = current_user if @interaction
         @interaction.notes << @note if @interaction
         @note.save
         redirect to "/notes/#{@note.id}"
@@ -78,6 +80,58 @@ class NotesController < ApplicationController
       @note = Note.find(params[:id])
       @user = current_user
       erb :'notes/edit'
+    else
+      erb :'users/login', locals: {message: "Please sign in to view content."}
+    end
+  end
+
+  patch '/notes/:id' do
+    if logged_in?
+      @note = Note.find(params[:id])
+      @user = current_user
+      if @note #does the note exist
+        if @note.contact #is it a contact's note?
+          if @note.contact.user == @user #did this user make the note
+            @note.content = params["note"]["content"]
+            @note.save
+            @contact = Contact.new(params[:contact]) if !params["contact"]["name"].empty?
+            if @note.invalid?
+              erb :'notes/edit'
+            elsif @contact && params[:note][:contact_id]
+              erb :'/notes/edit', locals: {message: "A Note can only belong to one Contact."}
+            else
+              @note.update(params[:note])
+              @contact.user = @user if @contact
+              @contact.notes << @note if @contact
+              @note.save
+              redirect to "/notes/#{@note.id}"
+            end
+          else
+            erb :'notes/index', locals: {message: "You didn't make that note. You can't edit other people's notes."}
+          end
+        elsif @note.interaction 
+          if @note.interaction.user == @user #did this user make the note
+            @note.content = params["note"]["content"]
+            @note.save
+            @interaction = Interaction.new(params[:interaction]) if !params["interaction"]["date"].empty?
+            if @note.invalid?
+              erb :'notes/edit'
+            elsif @interaction && params[:note][:interaction_id]
+              erb :'/notes/edit', locals: {message: "A Note can only belong to one Interaction."}
+            else
+              @note.update(params[:note])
+              @interaction.user = @user if @interaction
+              @interaction.notes << @note if @interaction
+              @note.save
+              redirect to "/notes/#{@note.id}"
+            end
+          else
+            erb :'notes/index', locals: {message: "You didn't make that note. You can't edit other people's notes."}
+          end
+        end
+      else
+        erb :'notes/index', locals: {message: "No such note."}
+      end
     else
       erb :'users/login', locals: {message: "Please sign in to view content."}
     end
