@@ -76,20 +76,26 @@ class NotesController < ApplicationController
   delete '/notes/:id/delete' do
     if logged_in?
       @note = Note.find(params[:id])
-      if @note && @note.contact.user == current_user
-        @note.delete
-        @user = current_user
-        erb :'contacts/index', locals: {message: "Your note was deleted."}
-      elsif @note && @note.interaction.user == current_user
-        @note.delete
-        @user = current_user
-        erb :'contacts/index', locals: {message: "Your note was deleted."}
-      elsif @note && @note.contact.user != current_user
-        @user = current_user
-        erb :'notes/index', locals: {message: "You didn't make that note. You can't delete other people's notes."} 
-      elsif @note && @note.interaction.user != current_user
-        @user = current_user
-        erb :'notes/index', locals: {message: "You didn't make that note. You can't delete other people's notes."} 
+      if @note 
+          if @note.contact
+            if @note.contact.user == current_user
+              @note.delete
+              @user = current_user
+              erb :'contacts/index', locals: {message: "Your note was deleted."}
+            elsif @note.contact.user != current_user
+              @user = current_user
+              erb :'notes/index', locals: {message: "You didn't make that note. You can't delete other people's notes."} 
+            end
+          elsif @note.interaction
+            if @note.interaction.user == current_user
+              @note.delete
+              @user = current_user
+              erb :'notes/index', locals: {message: "Your note was deleted."}
+            elsif @note.interaction.user != current_user
+              @user = current_user
+              erb :'notes/index', locals: {message: "You didn't make that note. You can't delete other people's notes."} 
+            end
+          end
       else
         @user = current_user
         erb :'notes/index', locals: {message: "No such note."}

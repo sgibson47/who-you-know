@@ -1,6 +1,23 @@
 <h2><%= @user.username%>'s Notes</h2>
 <br>
-<% @user.notes.each do |n|%>
-  <p> Note #<a href="/notes/<%=n.id%>"><%= n.id %></a></p>
-  <p> <%= n.content %></p>
+<h3>Notes About Contacts</h3>
+<% @user.contacts.each do |c|%>
+  <%if !c.notes.empty?%>
+    <p><%=c.name%><br>
+    <%c.notes.each do |n|%>
+      Note #<a href="/notes/<%=n.id%>"><%= n.id %></a><br>
+      <%= n.content %></p>
+    <%end%>
+  <%end%>
+<%end%>
+
+<h3>Notes About Interactions</h3>
+<% @user.interactions.each do |i|%>
+  <% if !i.notes.empty?%>
+    <p><%=i.date%><br>
+    <%i.notes.each do |n|%>
+      Note #<a href="/notes/<%=n.id%>"><%= n.id %></a><br>
+      <%= n.content %></p>
+    <%end%>
+  <%end%>
 <%end%>
