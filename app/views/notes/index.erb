@@ -3,9 +3,9 @@
 <h3>Notes About Contacts</h3>
 <% @user.contacts.each do |c|%>
   <%if !c.notes.empty?%>
-    <p><%=c.name%><br>
+    <h4><%=c.name%></h4>
     <%c.notes.each do |n|%>
-      Note #<a href="/notes/<%=n.id%>"><%= n.id %></a><br>
+      <p>Note #<a href="/notes/<%=n.id%>"><%= n.id %></a><br>
       <%= n.content %></p>
     <%end%>
   <%end%>
@@ -14,9 +14,9 @@
 <h3>Notes About Interactions</h3>
 <% @user.interactions.each do |i|%>
   <% if !i.notes.empty?%>
-    <p><%=i.date%><br>
+    <h4><%=i.date%></h4>
     <%i.notes.each do |n|%>
-      Note #<a href="/notes/<%=n.id%>"><%= n.id %></a><br>
+      <p>Note #<a href="/notes/<%=n.id%>"><%= n.id %></a><br>
       <%= n.content %></p>
     <%end%>
   <%end%>
