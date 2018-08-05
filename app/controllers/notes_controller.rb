@@ -11,7 +11,7 @@ class NotesController < ApplicationController
   get '/notes/new/for_contact' do
     if logged_in?
       @user = current_user
-      erb :'notes/new'
+      erb :'notes/new/for_contact'
     else
       erb :'users/login', locals: {message: "Please sign in to view content."}
     end
@@ -20,7 +20,7 @@ class NotesController < ApplicationController
   get '/notes/new/for_interaction' do
     if logged_in?
       @user = current_user
-      erb :'notes/new'
+      erb :'notes/new/for_interaction'
     else
       erb :'users/login', locals: {message: "Please sign in to view content."}
     end
