@@ -73,4 +73,30 @@ class NotesController < ApplicationController
     end
   end
 
+  delete '/notes/:id/delete' do
+    if logged_in?
+      @note = Note.find(params[:id])
+      if @note && @note.contact.user == current_user
+        @note.delete
+        @user = current_user
+        erb :'contacts/index', locals: {message: "Your note was deleted."}
+      elsif @note && @note.interaction.user == current_user
+        @note.delete
+        @user = current_user
+        erb :'contacts/index', locals: {message: "Your note was deleted."}
+      elsif @note && @note.contact.user != current_user
+        @user = current_user
+        erb :'notes/index', locals: {message: "You didn't make that note. You can't delete other people's notes."} 
+      elsif @note && @note.interaction.user != current_user
+        @user = current_user
+        erb :'notes/index', locals: {message: "You didn't make that note. You can't delete other people's notes."} 
+      else
+        @user = current_user
+        erb :'notes/index', locals: {message: "No such note."}
+      end
+    else
+      erb :'users/login', locals: {message: "Please sign in to view content."}
+    end
+  end  
+
 end
