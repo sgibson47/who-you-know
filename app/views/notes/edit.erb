@@ -2,10 +2,50 @@
 <h2>Edit Note #<%= @note.id%></h2>
 
 <br>
-<% if @note.contact %>
-  
-<%end%>
 
-<% if @note.interaction %>
+<form method="post" action="/notes/<%=@note.id%>">
+  <input id="hidden" type="hidden" name="_method" value="PATCH">
+  <label>Content:</label>
+  <br></br>
+  <input type="text" name="note[content]" value="<%= @note.content %>">
+  <br></br>
   
-<%end%>
+  <% if @note.contact %>
+    <label>Choose an existing Contact to associate with this note:</label>
+ 
+    <br></br>
+   
+    <%@user.contacts.each do |c|%>
+      <input type="radio" name="note[contact_id]" id="<%= c.id%>" value="<%=c.id%>"<%='checked' if @note.contact == c %>><%=c.name%></input>
+    <%end%>
+   
+    <br></br>
+   
+    <label>and/or, create a new Contact:</label>
+    <br></br>
+    <label>Name:</label>
+      <input  type="text" name="contact[name]" id="contact_name"></input>
+    <br></br>
+  <%end%>
+
+  <% if @note.interaction %>
+   <label>Choose an existing Interaction to associate with this note:</label>
+ 
+  <br></br>
+ 
+  <%@user.interactions.each do |i|%>
+    <input type="radio" name="note[interaction_id]" id="<%= i.id%>" value="<%=i.id%>"<%='checked' if @note.interaction == i %>><%=i.date%></input>
+    <%end%>
+   
+    <br></br>
+   
+    <label>and/or, create a new Interaction:</label>
+    <br></br>
+    <label>Date:</label>
+      <input  type="text" name="interaction[date]" id="interaction_date"></input>
+    <br></br>
+  <%end%>
+
+  <input type="submit" value="submit">
+</form>
+

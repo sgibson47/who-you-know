@@ -6,7 +6,7 @@
   <h4>A Note about <%= @note.contact.name%></h4>
   <p><%=@note.content%></p>
   <br>
-  <form method="get" action="/notes/<%=@note.id%>/edit/for_contact">
+  <form method="get" action="/notes/<%=@note.id%>/edit">
     <input type="submit" value="Edit Note">
   </form>
 <%end%>
@@ -21,7 +21,7 @@
     <%end%>
   <%end%>
   <br>
-  <form method="get" action="/notes/<%=@note.id%>/edit/for_interaction">
+  <form method="get" action="/notes/<%=@note.id%>/edit">
     <input type="submit" value="Edit Note">
   </form>
 <%end%>
