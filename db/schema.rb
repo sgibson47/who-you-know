@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180802211557) do
+ActiveRecord::Schema.define(version: 20180806204715) do
 
   create_table "contact_interactions", force: :cascade do |t|
     t.integer "contact_id"
@@ -21,8 +21,17 @@ ActiveRecord::Schema.define(version: 20180802211557) do
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "image_url"
+    t.string   "email"
+    t.string   "telephone"
+    t.string   "slack"
+    t.string   "git_hub_url"
+    t.string   "linked_in_url"
+    t.string   "twitter_url"
+    t.string   "home_page_url"
+    t.string   "education"
   end
 
   create_table "interactions", force: :cascade do |t|
@@ -30,6 +39,8 @@ ActiveRecord::Schema.define(version: 20180802211557) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "location"
+    t.integer  "time"
   end
 
   create_table "notes", force: :cascade do |t|
