@@ -15,12 +15,14 @@
 <%end%>
 
 <form action="/interactions" method="POST">
-  <label>Date:</label>
-  
-  <br></br>
-  
+  <label>*Date:</label>
   <input type="text" id="interaction_date" name="interaction[date]">
-  
+  <br></br>
+  <label>Time:</label>
+  <input type="text" id="interaction_time" name="interaction[time]">
+  <br></br>
+  <label>Location:</label>
+  <input type="text" id="interaction_location" name="interaction[location]">
   <br></br>
   <br></br>
  
@@ -31,5 +33,6 @@
   <br></br>
 
   <input type="submit" value="Create New Interaction">
-
+  <br></br>
+  <p>* Indicates a required field</p>
 </form>

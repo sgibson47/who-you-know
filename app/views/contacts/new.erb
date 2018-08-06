@@ -15,7 +15,7 @@
 <%end%>
 
 <form action="/contacts" method="POST">
-  <label>Name:</label>
+  <label>* Name:</label>
   <input type="text" id="contact_name" name="contact[name]">
   <br></br>
   <label>Location:</label>
@@ -51,5 +51,7 @@
   <br></br>
 
   <input type="submit" value="Create New Contact">
+  <br></br>
+  <p>* Indicates a required field</p>
 
 </form>
