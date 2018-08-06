@@ -27,8 +27,14 @@
 <form method="post" action="/interactions/<%=@interaction.id%>">
   <input id="hidden" type="hidden" name="_method" value="PATCH">
   <label>Date:</label>
-  <br></br>
   <input type="text" name="interaction[date]" value="<%= @interaction.date %>">
+  <br></br>
+  <label>Time:</label>
+  <input type="text" id="interaction_time" name="interaction[time]" value="<%= @interaction.time %>">
+  <br></br>
+  <label>Location:</label>
+  <input type="text" id="interaction_location" name="interaction[location]" value="<%= @interaction.location %>">
+  <br></br>
   <br></br>
 
   <label>Choose an existing Contact:</label>
