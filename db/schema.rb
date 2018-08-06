@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180806210911) do
+ActiveRecord::Schema.define(version: 20180806215642) do
 
   create_table "contact_interactions", force: :cascade do |t|
     t.integer "contact_id"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20180806210911) do
     t.string   "linked_in_url"
     t.string   "twitter_url"
     t.string   "home_page_url"
-    t.string   "education"
+    t.string   "employer"
     t.string   "location"
   end
 
