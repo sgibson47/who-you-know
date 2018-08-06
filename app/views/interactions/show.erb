@@ -1,16 +1,24 @@
 <h2><%= @interaction.user.username%>'s Interaction</h2>
 <h2><%= @interaction.date%></h2>
 
-<br>
-<h4>Notes about <%=@interaction.date%></h4>
-<%@interaction.notes.each do |n|%>
-  <%= n.content%><br>
+<% if @interaction.time %>
+  <p><%= @interaction.time %></p>
+<%end%>
+
+<% if @interaction.location %>
+  <p><%= @interaction.location %></p>
 <%end%>
 
 <br>
 <h4>Contacts involved in <%=@interaction.date%>'s interaction</h4>
 <%@interaction.contacts.each do |c|%>
   <%= c.name%><br>
+<%end%>
+
+<br>
+<h4>Notes about <%=@interaction.date%></h4>
+<%@interaction.notes.each do |n|%>
+  <%= n.content%><br>
 <%end%>
 
 <br>
