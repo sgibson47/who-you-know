@@ -1,6 +1,43 @@
 <h2><%= @contact.user.username%>'s Contact</h2>
 <h2><%= @contact.name%></h2>
 
+<% if @contact.image_url %>
+  <img src="<%= @contact.image_url %>" />
+<%end%>
+
+<% if @contact.location %>
+  <p><%= @contact.location %></p>
+<%end%>
+
+<% if @contact.education %>
+  <p><%= @contact.education %></p>
+<%end%>
+
+<% if @contact.email %>
+  <p><%= @contact.email %></p>
+<%end%>
+
+<% if @contact.telephone %>
+  <p><%= @contact.telephone %></p>
+<%end%>
+
+<% if @contact.slack %>
+  <p><%= @contact.slack %></p>
+<%end%>
+
+<% if @contact.git_hub_url %>
+  <p><%= @contact.git_hub_url %></p>
+<%end%>
+
+<% if @contact.linked_in_url %>
+  <p><%= @contact.linked_in_url %></p>
+<%end%>
+
+<% if @contact.home_page_url %>
+  <p><%= @contact.home_page_url %></p>
+<%end%>
+
+
 <br>
 <h4>Notes about <%=@contact.name%></h4>
 <%@contact.notes.each do |n|%>
