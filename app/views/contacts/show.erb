@@ -4,13 +4,14 @@
 <br>
 <h4>Notes about <%=@contact.name%></h4>
 <%@contact.notes.each do |n|%>
+  <a href="/notes/<%=n.id%>"><%=n.id%></a>
   <%= n.content%><br>
 <%end%>
 
 <br>
 <h4>Interactions with <%=@contact.name%></h4>
 <%@contact.interactions.each do |i|%>
-  <%= i.date%><br>
+  <a href="/interactions/<%=i.id%>"><%= i.date%></a><br>
 <%end%>
 
 <br>
