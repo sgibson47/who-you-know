@@ -1,14 +1,14 @@
 <h2>Make a New Contact</h2>
 <%if @contact && @contact.errors.any?%>
   <%@contact.errors.messages.each do |k,v|%>
-    <p><% v.each do |message|%>
+    <p class="alert"><% v.each do |message|%>
       <%= message %></p>
     <%end%>
   <%end%>
 <%end%>
 <%if @note && @note.errors.any?%>
   <%@note.errors.messages.each do |k,v|%>
-    <p><% v.each do |message|%>
+    <p class="alert"><% v.each do |message|%>
       <%= message %></p>
     <%end%>
   <%end%>
@@ -42,18 +42,14 @@
   <label>LinkedIn:</label>
   <input type="text" id="contact_linkedin" name="contact[linked_in_url]">
   <br></br>
-  <label>Web Page:</label>
-  <input type="text" id="contact_homepage" name="contact[home_page_url]">
-  <br></br>
   <br></br>
  
-  <label>Add a Note about this Contact</label>
-  <br></br>
+  <h3>Add a Note about this Contact</h3>
   <label>Note:</label>
     <input  type="text" name="note[content]" id="note_content"></input>
   <br></br>
 
-  <input type="submit" value="Create New Contact">
+  <button type="submit" value="Create New Contact" class="create-button">Create New Contact</button>
   <br></br>
   <p>* Indicates a required field</p>
 

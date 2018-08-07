@@ -5,38 +5,33 @@
   <img src="<%= @contact.image_url %>" />
 <%end%>
 
-<% if @contact.location %>
-  <p><%= @contact.location %></p>
+<% if @contact.location && @contact.location != ""%>
+  <p>Location: <%= @contact.location %></p>
 <%end%>
 
-<% if @contact.employer %>
-  <p><%= @contact.employer %></p>
+<% if @contact.employer && @contact.employer != ""%>
+  <p>Employer: <%= @contact.employer %></p>
 <%end%>
 
-<% if @contact.email %>
-  <p><a href="mailto:<%=@contact.email%>"><%= @contact.email %></a></p>
+<% if @contact.email && @contact.email != ""%>
+  <p>Email: <a href="mailto:<%=@contact.email%>"><%= @contact.email %></a></p>
 <%end%>
 
-<% if @contact.telephone %>
-  <p><%= @contact.telephone %></p>
+<% if @contact.telephone && @contact.telephone != ""%>
+  <p>Telephone: <%= @contact.telephone %></p>
 <%end%>
 
-<% if @contact.slack %>
-  <p><%= @contact.slack %></p>
+<% if @contact.slack && @contact.slack != ""%>
+  <p>Slack:<%= @contact.slack %></p>
 <%end%>
 
-<% if @contact.git_hub_url %>
-  <p><a href="<%=@contact.git_hub_url%>" src="https://s3.amazonaws.com/learn-verified/github-icon.png"></a></p>
+<% if @contact.git_hub_url && @contact.git_hub_url != ""%>
+  <p><a href="<%=@contact.git_hub_url%>">GitHub</a></p>
 <%end%>
 
-<% if @contact.linked_in_url %>
-  <p><a href="<%=@contact.linked_in_url%>" src="https://s3.amazonaws.com/learn-verified/linkedin-icon.png"></a></p>
+<% if @contact.linked_in_url && @contact.linked_in_url != ""%>
+  <p><a href="<%=@contact.linked_in_url%>">LinkedIn</a></p>
 <%end%>
-
-<% if @contact.home_page_url %>
-  <p><a href="<%=@contact.home_page_url%>"><%= @contact.name%>'s Home Page</a></p>
-<%end%>
-
 
 <br>
 <h4>Notes about <%=@contact.name%></h4>
@@ -50,14 +45,15 @@
 <%@contact.interactions.each do |i|%>
   <a href="/interactions/<%=i.id%>"><%= i.date%></a><br>
 <%end%>
+<br>
 
 <br>
 <form method="get" action="/contacts/<%=@contact.id%>/edit">
-  <input type="submit" value="Edit Contact">
+  <button type="submit" value="Edit Contact" class="create-button">Edit Contact</button>
 </form>
 
 <br>
 <form method="post" action="/contacts/<%=@contact.id%>/delete">
   <input id="hidden" type="hidden" name="_method" value="DELETE">
-  <input type="submit" value="Delete Contact">
+  <button type="submit" value="Delete Contact" class="create-button">Delete Contact</button>
 </form>

@@ -5,7 +5,7 @@
   <%if !c.notes.empty?%>
     <h4><%=c.name%></h4>
     <%c.notes.each do |n|%>
-      <p>Note #<a href="/notes/<%=n.id%>"><%= n.id %></a><br>
+      <p><a href="/notes/<%=n.id%>">Note #<%= n.id %></a><br>
       <%= n.content %></p>
     <%end%>
   <%end%>
@@ -16,7 +16,7 @@
   <% if !i.notes.empty?%>
     <h4><%=i.date%></h4>
     <%i.notes.each do |n|%>
-      <p>Note #<a href="/notes/<%=n.id%>"><%= n.id %></a><br>
+      <p><a href="/notes/<%=n.id%>">Note #<%= n.id %></a><br>
       <%= n.content %></p>
     <%end%>
   <%end%>

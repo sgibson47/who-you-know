@@ -22,12 +22,13 @@
   <%end%>
   <br>
   <form method="get" action="/notes/<%=@note.id%>/edit">
-    <input type="submit" value="Edit Note">
-  </form>
+    <button type="submit" value="Edit Note" class="create-button">Edit Note</button>
+  <br></br>
 <%end%>
 
 <br>
 <form method="post" action="/notes/<%=@note.id%>/delete">
   <input id="hidden" type="hidden" name="_method" value="DELETE">
-  <input type="submit" value="Delete Note">
+  <button type="submit" value="Delete Note" class="create-button">Delete Note</button>
+  <br></br>
 </form>

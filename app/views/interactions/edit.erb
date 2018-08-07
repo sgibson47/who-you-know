@@ -29,9 +29,6 @@
   <label>Date:</label>
   <input type="text" name="interaction[date]" value="<%= @interaction.date %>">
   <br></br>
-  <label>Time:</label>
-  <input type="text" id="interaction_time" name="interaction[time]" value="<%= @interaction.time %>">
-  <br></br>
   <label>Location:</label>
   <input type="text" id="interaction_location" name="interaction[location]" value="<%= @interaction.location %>">
   <br></br>
@@ -61,5 +58,6 @@
   <br></br>
 
 
-  <input type="submit" value="submit">
+  <button type="submit" value="Submit" class="create-button">Submit</button>
+  <br></br>
 </form>

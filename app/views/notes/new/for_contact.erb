@@ -1,29 +1,25 @@
 <h2>Make a New Note</h2>
 
 <form action="/notes/for_contact" method="POST">
-  <label>Content:</label>
-  
-  <br></br>
-  
+  <label>*Content:</label>
   <input type="text" id="note_content" name="note[content]">
   
   <br></br>
   <br></br>
  
-  <label>Choose an existing Contact to associate with this note:</label>
- 
-  <br></br>
+  <h3>Choose an existing Contact to associate with this note:</h3>
  
   <%@user.contacts.each do |c|%>
-    <input type="radio" name="note[contact_id]" id="<%= c.id%>" value="<%=c.id%>"><%=c.name%></input>
+    <input type="radio" name="note[contact_id]" id="<%= c.id%>" value="<%=c.id%>"><%=c.name%></input><br>
   <%end%>
  
   <br></br>
  
-  <label>and/or, create a new Contact:</label>
-  <br></br>
+  <h3>and/or, create a new Contact:</h3>
   <label>Name:</label>
     <input  type="text" name="contact[name]" id="contact_name"></input>
   <br></br>
-  <input type="submit" value="Create New Note">
+  <button type="submit" value="Create New Note" class="create-button">Create New Note</button>
+  <br></br>
+  <p>* Indicates a required field</p>
 </form>

@@ -1,34 +1,32 @@
 <h2><%= @interaction.user.username%>'s Interaction</h2>
-<h2><%= @interaction.date%></h2>
-
-<% if @interaction.time %>
-  <p><%= @interaction.time %></p>
-<%end%>
+<h2>On <%= @interaction.date%></h2>
 
 <% if @interaction.location %>
-  <p><%= @interaction.location %></p>
+  <p>Location: <%= @interaction.location %></p>
 <%end%>
 
 <br>
 <h4>Contacts involved in <%=@interaction.date%>'s interaction</h4>
 <%@interaction.contacts.each do |c|%>
-  <%= c.name%><br>
+  <a href="/contacts/<%=c.id%>"><%= c.name%></a><br>
 <%end%>
 
 <br>
-<h4>Notes about <%=@interaction.date%></h4>
+<h4>Notes about <%=@interaction.date%>'s interaction</h4>
 <%@interaction.notes.each do |n|%>
   <%= n.content%><br>
 <%end%>
 
 <br>
 <form method="get" action="/interactions/<%=@interaction.id%>/edit">
-  <input type="submit" value="Edit Interaction">
+  <button type="submit" value="Edit Interaction" class="create-button">Edit Interaction</button>
+  <br></br>
 </form>
 
 <br>
 <form method="post" action="/interactions/<%=@interaction.id%>/delete">
   <input id="hidden" type="hidden" name="_method" value="DELETE">
-  <input type="submit" value="Delete Interaction">
+  <button type="submit" value="Delete Interactiont" class="create-button">Delete Interaction</button>
+  <br></br>
 </form>
 

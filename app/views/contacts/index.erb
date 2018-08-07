@@ -1,5 +1,5 @@
 <h2><%= @user.username%>'s Contacts</h2>
 <br>
 <% @user.contacts.each do |c|%>
-  <a href="/contacts/<%=c.id%>"><%= c.name %><br></a>
+  <a class="big-text" href="/contacts/<%=c.id%>"><%= c.name %><br><br></a>
 <%end%>

@@ -1,1 +1,99 @@
-style.css
+/* all links */
+a {
+  text-decoration: none !important;
+}
+
+/* unvisited link */
+a:link {
+  color: #595959;
+}
+
+/* visited link */
+a:visited {
+  color: #595959
+}
+
+/* mouse over link */
+a:hover {
+  color: hotpink;
+}
+
+/* buttons */
+button {
+  text-transform: uppercase;
+  border-radius: 5px; 
+  padding: 5px 0;
+  color: #404040;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1em;
+  background-color: #EEEEEE;
+  width: 400px;
+}
+
+/* misc */
+#alert {
+  padding: 10px;
+  background: #ccc;
+  color: black;
+  margin-bottom: 15px;
+}
+
+.guts {
+  text-align: center;
+}
+
+.big-text {
+  font-size: 45px;
+  line-height: 50px;
+}
+
+.med-text {
+  font-size: 25px;
+}
+
+/* header */
+header{
+  border-bottom: 2px solid #ccc;
+}
+
+.col-1-of-6 {
+  float: left;
+  width: 15%;
+  margin-right: 2%;
+}
+
+.col-2-of-6 {
+  float: left;
+  width: 15%;
+  margin-right: 2%;
+}
+
+.col-3-of-6 {
+  float: left;
+  width: 15%;
+  margin-right: 2%;
+}
+
+.col-4-of-6 {
+  float: left;
+  width: 15%;
+  margin-right: 2%;
+
+}
+.col-5-of-6 {
+  float: left;
+  width: 15%;
+  margin-right: 2%;
+}
+
+.col-6-of-6 {
+  float: left;
+  width: 15%;
+}
+
+.col-7 {
+  text-align: center;
+}
+
+
