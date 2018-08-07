@@ -26,15 +26,15 @@
 <%end%>
 
 <% if @contact.git_hub_url %>
-  <p><%= @contact.git_hub_url %></p>
+  <p><a href="<%=@contact.git_hub_url%>"><%= @contact.name%>'s GitHub</a></p>
 <%end%>
 
 <% if @contact.linked_in_url %>
-  <p><%= @contact.linked_in_url %></p>
+  <p><a href="<%=@contact.linked_in_url%>"><%= @contact.name%>'s LinkedIn</a></p>
 <%end%>
 
 <% if @contact.home_page_url %>
-  <p><%= @contact.home_page_url %></p>
+  <p><a href="<%=@contact.home_page_url%>"><%= @contact.name%>'s Home Page</a></p>
 <%end%>
 
 
