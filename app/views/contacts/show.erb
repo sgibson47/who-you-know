@@ -14,7 +14,7 @@
 <%end%>
 
 <% if @contact.email %>
-  <p><%= @contact.email %></p>
+  <p><a href="mailto:<%=@contact.email%>"><%= @contact.email %></a></p>
 <%end%>
 
 <% if @contact.telephone %>
