@@ -26,11 +26,11 @@
 <%end%>
 
 <% if @contact.git_hub_url %>
-  <p><a href="<%=@contact.git_hub_url%>"><%= @contact.name%>'s GitHub</a></p>
+  <p><a href="<%=@contact.git_hub_url%>" src="https://s3.amazonaws.com/learn-verified/github-icon.png"></a></p>
 <%end%>
 
 <% if @contact.linked_in_url %>
-  <p><a href="<%=@contact.linked_in_url%>"><%= @contact.name%>'s LinkedIn</a></p>
+  <p><a href="<%=@contact.linked_in_url%>" src="https://s3.amazonaws.com/learn-verified/linkedin-icon.png"></a></p>
 <%end%>
 
 <% if @contact.home_page_url %>
