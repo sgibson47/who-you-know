@@ -2,21 +2,21 @@
 
 <%if @contact && @contact.errors.any?%>
   <%@contact.errors.messages.each do |k,v|%>
-    <% v.each do |message|%>
+    <p class="alert"><% v.each do |message|%>
       <%= message %></p>
     <%end%>
   <%end%><br>
 <%end%>
 <%if @interaction && @interaction.errors.any?%>
   <%@interaction.errors.messages.each do |k,v|%>
-    <% v.each do |message|%>
+    <p class="alert"><% v.each do |message|%>
       <%= message %></p>
     <%end%>
   <%end%><br>
 <%end%>
 <%if @note && @note.errors.any?%>
   <%@note.errors.messages.each do |k,v|%>
-    <% v.each do |message|%>
+    <p class="alert"><% v.each do |message|%>
       <%= message %></p>
     <%end%>
   <%end%><br>

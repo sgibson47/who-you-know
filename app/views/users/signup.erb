@@ -1,7 +1,7 @@
 
 <%if @user && @user.errors.any?%>
   <%@user.errors.messages.each do |k,v|%>
-    <p>There was a problem with the <%= k %> you gave.<br></br>
+    <p class="alert">There was a problem with the <%= k %> you gave.<br></br>
     <% v.each do |message|%>
       <%= message %></p>
     <%end%>
