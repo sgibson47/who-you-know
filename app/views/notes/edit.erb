@@ -4,21 +4,21 @@
 
 <%if @contact && @contact.errors.any?%>
   <%@contact.errors.messages.each do |k,v|%>
-    <% v.each do |message|%>
+    <p id="alert"><% v.each do |message|%>
       <%= message %></p>
     <%end%>
   <%end%><br>
 <%end%>
 <%if @interaction && @interaction.errors.any?%>
   <%@interaction.errors.messages.each do |k,v|%>
-    <% v.each do |message|%>
+    <p id="alert"><% v.each do |message|%>
       <%= message %></p>
     <%end%>
   <%end%><br>
 <%end%>
 <%if @note && @note.errors.any?%>
   <%@note.errors.messages.each do |k,v|%>
-    <% v.each do |message|%>
+    <p id="alert"><% v.each do |message|%>
       <%= message %></p>
     <%end%>
   <%end%><br>
@@ -40,6 +40,8 @@
     <%@user.contacts.each do |c|%>
       <input type="radio" name="note[contact_id]" id="<%= c.id%>" value="<%=c.id%>"<%='checked' if @note.contact == c %>><%=c.name%></input>
     <%end%>
+      <input type="radio" name="note[contact_id]" value="nil">None of these</input>
+
    
     <br></br>
    
@@ -58,6 +60,7 @@
   <%@user.interactions.each do |i|%>
     <input type="radio" name="note[interaction_id]" id="<%= i.id%>" value="<%=i.id%>"<%='checked' if @note.interaction == i %>><%=i.date%></input>
     <%end%>
+    <input type="radio" name="note[interaction_id]" value="nil">None of these</input>
    
     <br></br>
    
@@ -68,7 +71,7 @@
     <br></br>
   <%end%>
 
-  <button type="submit" value="Submit" class="create-button">Submit</button>
+  <button type="submit" value="Submit">Submit</button>
   <br></br>
 </form>
 

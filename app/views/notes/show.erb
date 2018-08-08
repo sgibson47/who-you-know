@@ -7,7 +7,7 @@
   <p><%=@note.content%></p>
   <br>
   <form method="get" action="/notes/<%=@note.id%>/edit">
-    <input type="submit" value="Edit Note">
+    <button type="submit" value="Edit Note">Edit Note</button>
   </form>
 <%end%>
 
@@ -22,13 +22,14 @@
   <%end%>
   <br>
   <form method="get" action="/notes/<%=@note.id%>/edit">
-    <button type="submit" value="Edit Note" class="create-button">Edit Note</button>
-  <br></br>
+    <button type="submit" value="Edit Note">Edit Note</button>
+  </form>
 <%end%>
+
 
 <br>
 <form method="post" action="/notes/<%=@note.id%>/delete">
   <input id="hidden" type="hidden" name="_method" value="DELETE">
-  <button type="submit" value="Delete Note" class="create-button">Delete Note</button>
+  <button type="submit" value="Delete Note">Delete Note</button>
   <br></br>
 </form>

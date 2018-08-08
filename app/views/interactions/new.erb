@@ -1,14 +1,14 @@
 <h2>Make a New Interaction</h2>
 <%if @interaction && @interaction.errors.any?%>
   <%@interaction.errors.messages.each do |k,v|%>
-    <p><% v.each do |message|%>
+    <p id="alert"><% v.each do |message|%>
       <%= message %></p>
     <%end%>
   <%end%>
 <%end%>
 <%if @note && @note.errors.any?%>
   <%@note.errors.messages.each do |k,v|%>
-    <p><% v.each do |message|%>
+    <p id="alert"><% v.each do |message|%>
       <%= message %></p>
     <%end%>
   <%end%>
@@ -21,6 +21,7 @@
   <label>Location:</label>
   <input type="text" id="interaction_location" name="interaction[location]">
   <br></br>
+  <p>* Indicates a required field</p>
   <br></br>
  
   <h3>Add a Note about this Interaction</h3>
@@ -30,5 +31,4 @@
 
   <button type="submit" value="Create New Interaction" class="create-button">Create New Interaction</button>
   <br></br>
-  <p>* Indicates a required field</p>
 </form>

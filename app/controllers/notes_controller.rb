@@ -41,9 +41,14 @@ class NotesController < ApplicationController
       @contact = Contact.new(params[:contact]) if !params["contact"]["name"].empty?
       if @note.invalid?
         @note.save
+        @user = current_user
         erb :'/notes/new/for_contact'
-      elsif @contact && params[:contact][:contact_id]
+      elsif @contact && params[:note][:contact_id]
+        @user = current_user
         erb :'/notes/new/for_contact', locals: {message: "A Note can only belong to one Contact."}
+      elsif !@contact && !params[:note][:contact_id]
+        @user = current_user
+        erb :'/notes/new/for_contact', locals: {message: "A Note must belong to one Contact."}
       else
         @contact.user = current_user if @contact
         @contact.notes << @note if @contact
@@ -58,12 +63,17 @@ class NotesController < ApplicationController
   post '/notes/for_interaction' do
     if logged_in?
       @note= Note.new(params[:note])
-      @interaction = Interaction.new(params[:interaction]) if !params["interaction"]["name"].empty?
+      @interaction = Interaction.new(params[:interaction]) if !params["interaction"]["date"].empty?
       if @note.invalid?
         @note.save
+        @user = current_user
         erb :'/notes/new/for_interaction'
-      elsif @interaction && params[:interaction][:interaction_id]
+      elsif @interaction && params[:note][:interaction_id]
+        @user = current_user
         erb :'/notes/new/for_interaction', locals: {message: "A Note can only belong to one Interaction."}
+      elsif !@interaction && !params[:note][:interaction_id]
+        @user = current_user
+        erb :'/notes/new/for_interaction', locals: {message: "A Note must belong to one Interaction."}
       else
         @interaction.user = current_user if @interaction
         @interaction.notes << @note if @interaction
@@ -97,8 +107,10 @@ class NotesController < ApplicationController
             @contact = Contact.new(params[:contact]) if !params["contact"]["name"].empty?
             if @note.invalid?
               erb :'notes/edit'
-            elsif @contact && params[:note][:contact_id]
+            elsif @contact && params[:note][:contact_id] != "nil"
               erb :'/notes/edit', locals: {message: "A Note can only belong to one Contact."}
+            elsif !@contact && params[:note][:contact_id] == "nil"
+              erb :'/notes/edit', locals: {message: "A Note must belong to one Contact."}
             else
               @note.update(params[:note])
               @contact.user = @user if @contact
@@ -116,8 +128,10 @@ class NotesController < ApplicationController
             @interaction = Interaction.new(params[:interaction]) if !params["interaction"]["date"].empty?
             if @note.invalid?
               erb :'notes/edit'
-            elsif @interaction && params[:note][:interaction_id]
+            elsif @interaction && params[:note][:interaction_id] != nil
               erb :'/notes/edit', locals: {message: "A Note can only belong to one Interaction."}
+            elsif !@interaction && params[:note][:interaction_id] == "nil"
+              erb :'/notes/edit', locals: {message: "A Note must belong to one Interaction."}
             else
               @note.update(params[:note])
               @interaction.user = @user if @interaction
@@ -159,6 +173,10 @@ class NotesController < ApplicationController
               @user = current_user
               erb :'notes/index', locals: {message: "You didn't make that note. You can't delete other people's notes."} 
             end
+          else
+            @note.delete
+            @user = current_user
+            erb :'notes/index', locals: {message: "Your note was deleted."}
           end
       else
         @user = current_user

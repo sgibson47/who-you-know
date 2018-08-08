@@ -1,6 +1,5 @@
 
 <%if @user && @user.errors.any?%>
-  <%binding.pry%>
   <%@user.errors.messages.each do |k,v|%>
     <p id="alert"><% v.each do |message|%>
       <%= message %></p>

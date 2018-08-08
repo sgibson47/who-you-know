@@ -1,5 +1,20 @@
 <h2>Make a New Note</h2>
 
+<%if @contact && @contact.errors.any?%>
+  <%@contact.errors.messages.each do |k,v|%>
+    <p id="alert"><% v.each do |message|%>
+      <%= message %></p>
+    <%end%>
+  <%end%><br>
+<%end%>
+<%if @note && @note.errors.any?%>
+  <%@note.errors.messages.each do |k,v|%>
+    <p id="alert"><% v.each do |message|%>
+      <%= message %></p>
+    <%end%>
+  <%end%><br>
+<%end%>
+
 <form action="/notes/for_contact" method="POST">
   <label>*Content:</label>
   <input type="text" id="note_content" name="note[content]">
