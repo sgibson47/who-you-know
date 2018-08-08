@@ -5,12 +5,13 @@
       <br>
       <h2>Welcome, <%=current_user.username %></h2>
     <% else %>
-      <p>Welcome</p>
-      <p>Please Log In or Sign Up below:</p>
-      <a href="/signup" class="button button-1"><button type="button" class="button-1">Sign Up</button></a>
+      <h2>Welcome</h2>
+      <h3>Please Log In or Sign Up below:</h3>
+      <br>
+      <a href="/signup" ><button type="button" >Sign Up</button></a>
       <br>
       <br>
-      <a href="/login"> Log In </a>
+      <a href="/login"><button type="button" >Log In</button></a>
     <%end %>
   </div>
 </div>
