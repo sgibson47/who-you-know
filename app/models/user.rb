@@ -4,9 +4,11 @@ class User < ActiveRecord::Base
   has_many :notes, through: :contacts
   has_many :notes, through: :interactions
 
-  has_secure_password
+  has_secure_password validations: false
 
-  validates :email, :username, :password, presence: {message: "In order to signup, you must include an email, username, and password."}
+  validates :email, presence: {message: "In order to signup, you must include an email."} 
+  validates :username, presence: {message: "In order to signup, you must include a username."} 
+  validates :password, presence: {message: "In order to signup, you must include a password."}
   validates :username, uniqueness: {message: "That username has been taken. Please try another."}
 
   def slug

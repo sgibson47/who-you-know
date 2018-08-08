@@ -1,8 +1,8 @@
 
 <%if @user && @user.errors.any?%>
+  <%binding.pry%>
   <%@user.errors.messages.each do |k,v|%>
-    <p class="alert">There was a problem with the <%= k %> you gave.<br></br>
-    <% v.each do |message|%>
+    <p id="alert"><% v.each do |message|%>
       <%= message %></p>
     <%end%>
   <%end%>
@@ -10,10 +10,14 @@
 
 <h2>Sign Up</h2>
 <form action="/signup" method="POST">
-  <p>Username: <input type="text" name="username"></p>
-  <p>Email: <input type="text" name="email"></p>
-  <p>Password: <input type="text" name="password"></p>
+  <p>*Username: <input type="text" name="username"></p>
+  <p>*Email: <input type="text" name="email"></p>
+  <p>*Password: <input type="text" name="password"></p>
+  <br>
+  <p>* Indicates a required field</p>
+  <br>
   <button type="submit" value="submit">submit</button>
+  
 </form>
 
 <br>
