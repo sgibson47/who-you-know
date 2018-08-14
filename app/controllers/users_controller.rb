@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   get '/signup' do
     if logged_in?
-      flash[:alert] = "Please Log Out to create a new user account."
+      flash[:message] = "Please Log Out to create a new user account."
       redirect to '/'
     else
       erb :'users/signup'
