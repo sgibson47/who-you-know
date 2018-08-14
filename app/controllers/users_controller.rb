@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
     if @user.save
       session[:user_id] = @user.id
-      erb :'users/show'
+      redirect to "/users/#{@user.slug}"
     else
       erb :'users/signup'
     end
@@ -36,8 +36,7 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :'users/login'
     else
-      @user = current_user
-      erb :'users/show'
+      redirect to "/users/#{current_user.slug}"
     end
   end
 
@@ -45,29 +44,25 @@ class UsersController < ApplicationController
     user = User.find_by(:username => params[:username])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      @user = current_user
-      erb :'users/show'
+      redirect to "/users/#{current_user.slug}"
     else
-      erb :'users/login', locals: {message: "Invalid username & password combo. You must provide an existing username and its password to log in."}
+      erb :'users/login', locals: {message: "Invalid username & password combo."}
     end
   end
 
   get '/users/:slug' do
-    if logged_in?
-      if @user = User.find_by_slug(params[:slug]) 
-        if @user == current_user
-          erb :'users/show'
-        else
-          @user = current_user
-          erb :'users/show', locals: {message: "You can only view your own content."}
-        end
+    redirect_if_not_logged_in
+    if @user = User.find_by_slug(params[:slug]) 
+      if @user == current_user
+        erb :'users/show'
       else
-        @user = current_user
-        erb :'users/show', locals: {message: "You can only view your own content."}
-      end 
+        flash[:message] = "You can only view your own content."
+        redirect to "/users/#{current_user.slug}"
+      end
     else
-      erb :'users/login', locals: {message: "Please sign in to view content."}
-    end
+      flash[:message] = "Not a valid user."
+      redirect to '/'
+    end 
   end
   
 end
