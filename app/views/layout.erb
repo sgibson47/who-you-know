@@ -61,8 +61,8 @@
             <%= message %>
           </div>
         <% end %>
-        <% if flash.has?(:message) %>
-          <%= flash[:message] %>
+        <% if flash[:message] %>
+          <div id="alert"><%= flash[:message] %></div>
         <% end %>
 
 
