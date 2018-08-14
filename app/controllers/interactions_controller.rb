@@ -15,7 +15,7 @@ class InteractionsController < ApplicationController
     @interaction = Interaction.find_by_id(params[:id])
     if @interaction.user == current_user
       erb :'interactions/show'
-    elsif && @interaction.user != current_user
+    elsif @interaction.user != current_user
       flash[:message] = "You may only view your own interactions."
       redirect to "/users/#{current_user.slug}"
     end

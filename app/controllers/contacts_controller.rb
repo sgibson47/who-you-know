@@ -62,7 +62,7 @@ class ContactsController < ApplicationController
     @interaction = Interaction.new(params[:interaction]) if !params["interaction"]["date"].empty?
     @user = current_user
     if @contact && @contact.user != @user
-      lash[:message] = "You can only edit your own contacts."
+      flash[:message] = "You can only edit your own contacts."
       redirect to "/contacts"
     elsif @contact && @contact.user == @user
       @contact.update(params[:contact])
