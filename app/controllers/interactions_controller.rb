@@ -1,123 +1,106 @@
 class InteractionsController < ApplicationController
   get '/interactions' do
-    if logged_in?
-      @user = current_user
-      erb :'interactions/index'
-    else
-      erb :'users/login', locals: {message: "Please sign in to view content."}
-    end
+    redirect_if_not_logged_in
+    @user = current_user
+    erb :'interactions/index'
   end
 
   get '/interactions/new' do
-    if logged_in?
-      erb :'interactions/new'
-    else
-      erb :'users/login', locals: {message: "Please sign in to view content."}
-    end
+    redirect_if_not_logged_in
+    erb :'interactions/new'
   end
 
   get '/interactions/:id' do
+    redirect_if_not_logged_in
     @interaction = Interaction.find_by_id(params[:id])
-    if logged_in? && @interaction.user == current_user
+    if @interaction.user == current_user
       erb :'interactions/show'
-    elsif logged_in? && @interaction.user != current_user
-      erb :'users/show', locals: {message: "You may only view your own contacts."}
-    else
-      erb :'users/login', locals: {message: "Please sign in to view content."}
+    elsif && @interaction.user != current_user
+      flash[:message] = "You may only view your own interactions."
+      redirect to "/users/#{current_user.slug}"
     end
   end
 
   post '/interactions' do
-    if logged_in?
-      @interaction= Interaction.new(params[:interaction])
-      @note = Note.new(params[:note]) if !params["note"]["content"].empty?
-      if @interaction.invalid?
-        @interaction.save
-        erb :"/interactions/new"
-      elsif @note && @note.invalid?
-        @note.save if !!@note
-        erb :'/interactions/new'
-      else
-        @interaction.user = current_user
-        @note.save if !!@note
-        @interaction.notes << @note if @note
-        @interaction.save
-        redirect to "/interactions/#{@interaction.id}"
-      end
+    redirect_if_not_logged_in
+    @interaction= Interaction.new(params[:interaction])
+    @note = Note.new(params[:note]) if !params["note"]["content"].empty?
+    if @interaction.invalid?
+      @interaction.save
+      erb :"/interactions/new"
+    elsif @note && @note.invalid?
+      @note.save if !!@note
+      erb :'/interactions/new'
     else
-      erb :'users/login', locals: {message: "Please sign in to view content."}
+      @interaction.user = current_user
+      @note.save if !!@note
+      @interaction.notes << @note if @note
+      @interaction.save
+      redirect to "/interactions/#{@interaction.id}"
     end
   end
 
   get '/interactions/:id/edit' do
-    if logged_in?
-      @interaction = Interaction.find_by_id(params[:id])
-      if @interaction && @interaction.user == current_user
-        @user = current_user
-        erb :'interactions/edit'
-      elsif @interaction && @interaction.user != current_user
-        @user = current_user
-        erb :'interactions/index', locals: {message: "You didn't make that interaction. You can't edit other people's interactions."} 
-      else
-        @user = current_user
-        erb :'interactions/index', locals: {message: "No such interaction."}
-      end
+    redirect_if_not_logged_in
+    @interaction = Interaction.find_by_id(params[:id])
+    if @interaction && @interaction.user == current_user
+      @user = current_user
+      erb :'interactions/edit'
+    elsif @interaction && @interaction.user != current_user
+      flash[:message] = "You may only edit your own interactions."
+      redirect to "/users/#{current_user.slug}"
     else
-      erb :'users/login', locals: {message: "Please sign in to view content."}
+      flash[:message] = "No such interaction."
+      redirect to "/interactions"
     end
   end
 
    patch '/interactions/:id' do
-    if logged_in?
-      @interaction = Interaction.find(params[:id])
-      @note = Note.new(params[:note]) if !params["note"]["content"].empty?
-      @contact = Contact.new(params[:contact]) if !params["contact"]["name"].empty?
-      @user = current_user
-      if @interaction && @interaction.user != @user
-        erb :'interactions/index', locals: {message: "You didn't make that contact. You can't edit other people's contacts."} 
-      elsif @interaction && @interaction.user == @user
+    redirect_if_not_logged_in
+    @interaction = Interaction.find(params[:id])
+    @note = Note.new(params[:note]) if !params["note"]["content"].empty?
+    @contact = Contact.new(params[:contact]) if !params["contact"]["name"].empty?
+    if @interaction && @interaction.user != current_user
+      flash[:message] = "You may only edit your own interactions."
+      redirect to "/users/#{current_user.slug}" 
+    elsif @interaction && @interaction.user == current_user
+      @interaction.update(params[:interaction])
+      if @interaction.invalid?
         @interaction.update(params[:interaction])
-        if @interaction.invalid?
-          @interaction.update(params[:interaction])
-          erb :'/interactions/edit'
-        elsif @note && @note.invalid?
-          @note.save if @note
-          erb :'/interactions/edit'
-        elsif @contact && @contact.invalid?
-          @contact.save
-          erb :"/interactions/edit"
-        else
-          @interaction.notes << @note if @note
-          @contact.user = @user if @contact
-          @interaction.contacts << @contact if @contact
-          @contact.save if @contact
-          @interaction.save
-          redirect to "/interactions/#{@interaction.id}"
-        end
+        erb :'/interactions/edit'
+      elsif @note && @note.invalid?
+        @note.save if @note
+        erb :'/interactions/edit'
+      elsif @contact && @contact.invalid?
+        @contact.save
+        erb :"/interactions/edit"
       else
-        erb :'interactions/index', locals: {message: "No such contact."}
+        @interaction.notes << @note if @note
+        @contact.user = @user if @contact
+        @interaction.contacts << @contact if @contact
+        @contact.save if @contact
+        @interaction.save
+        redirect to "/interactions/#{@interaction.id}"
       end
     else
-      erb :'users/login', locals: {message: "Please sign in to view content."}
+      flash[:message] = "No such interaction."
+      redirect to "/interactions"
     end
   end
 
   delete '/interactions/:id/delete' do
-    if logged_in?
-      @interaction = Interaction.find(params[:id])
-      if @interaction && @interaction.user == current_user
-        @interaction.delete
-        @user = current_user
-        erb :'interactions/index', locals: {message: "Your interaction was deleted."}
-      elsif @interaction && @interaction.user != current_user
-        @user = current_user
-        erb :'interactions/index', locals: {message: "You didn't make that interaction. You can't delete other people's interactions."} 
-      else
-        @user = current_user
-        erb :'interactions/index', locals: {message: "No such interaction."}
-      end
+    redirect_if_not_logged_in
+    @interaction = Interaction.find(params[:id])
+    if @interaction && @interaction.user == current_user
+      @interaction.delete
+      flash[:message] = "Your interaction was deleted."
+      redirect to "/interactions"
+    elsif @interaction && @interaction.user != current_user
+      flash[:message] = "You may only delete your own interactions."
+      redirect to "/users/#{current_user.slug}"
     else
-      erb :'users/login', locals: {message: "Please sign in to view content."}
+      flash[:message] = "No such interaction."
+      redirect to "/interactions"
     end
   end
 end
