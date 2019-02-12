@@ -37,6 +37,7 @@ button {
   background: #ccc;
   color: black;
   margin-bottom: 15px;
+  opacity: .8;
 }
 
 .guts {
